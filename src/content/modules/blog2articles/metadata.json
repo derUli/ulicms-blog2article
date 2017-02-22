@@ -1,0 +1,9 @@
+{
+	"version" : "0.1",
+	"embed" : false,
+	"custom_acl" : ["blog2articles"],
+	"admin_permission" : "blog2articles",
+	"controllers" : {
+	"Blog2ArticleController" : "controllers/Blog2ArticleController"
+	}
+}

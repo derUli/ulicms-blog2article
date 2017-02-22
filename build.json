@@ -1,0 +1,13 @@
+{
+	"id": "blog2article",
+	"version": "0.1",
+	"description": "Blog2Articles",
+	"categories": [
+		"import",
+		"export",
+		"blog",
+		"articles"
+	],
+	"dependencies" : ["blog"],
+	"compatible_from": "2017.1"
+}
