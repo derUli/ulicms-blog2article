@@ -20,12 +20,13 @@ class Blog2ArticleController extends Controller {
 				$_SESSION ["blog2article_step"] 
 		);
 		$query = Database::pQuery ( $sql, $args, true );
-		// @FIXME HTML-Code sollte nicht im Controller stehen
 		if (count ( $query ) > 0) {
 			// Todo Daten importieren
+			// @FIXME HTML-Code sollte nicht im Controller stehen
 			die ( '<div style="background-color:green;height:50px; width:' . $this->getPercent () . '%"></div>' );
 			$_SESSION ["blog2article_step"] += 1;
 		} else {
+			// @FIXME HTML-Code sollte nicht im Controller stehen
 			die ( '<!--finish--><div style="background-color:green;height:50px; width:' . intval ( 100 ) . '%"></div>' );
 		}
 	}
