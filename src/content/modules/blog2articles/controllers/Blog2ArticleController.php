@@ -9,6 +9,9 @@ class Blog2ArticleController extends Controller {
 		$query = "SELECT count(id) as amount FROM {prefix}blog";
 		$result = Database::fetchObject ( $query );
 	}
+	public function getCurrentStep() {
+		return $_SESSION ["blog2article_step"];
+	}
 	public function getPercent() {
 		$onefile = 100 / floatval ( $this->countTotalArgs () );
 		$currentPercent = floatval ( $_SESSION ["blog2article_step"] ) * $onefile;
@@ -23,11 +26,9 @@ class Blog2ArticleController extends Controller {
 		if (count ( $query ) > 0) {
 			// Todo Daten importieren
 			// @FIXME HTML-Code sollte nicht im Controller stehen
-			die ( '<div style="background-color:green;height:50px; width:' . $this->getPercent () . '%"></div>' );
 			$_SESSION ["blog2article_step"] += 1;
-		} else {
-			// @FIXME HTML-Code sollte nicht im Controller stehen
-			die ( '<!--finish--><div style="background-color:green;height:50px; width:' . intval ( 100 ) . '%"></div>' );
 		}
+		$html = Template::executeModuleTemplate ( "blog2article", "progressbar" );
+		die ( $html );
 	}
 }
