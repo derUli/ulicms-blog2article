@@ -74,7 +74,9 @@ class Blog2ArticleController extends Controller {
 			if ($blogData) {
 				$this->_importEntry ( $blogData );
 			}
-			$_SESSION ["blog2article_step"] += 1;
+			if ($_SESSION ["blog2article_step"] != $this->countTotalArgs ()) {
+				$_SESSION ["blog2article_step"] += 1;
+			}
 		}
 		$html = Template::executeModuleTemplate ( "blog2articles", "progressbar" );
 		die ( $html );
