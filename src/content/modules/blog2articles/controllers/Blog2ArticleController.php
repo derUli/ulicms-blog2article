@@ -60,6 +60,9 @@ class Blog2ArticleController extends Controller {
 			header ( "HTTP/1.0 403 Forbidden" );
 			return;
 		}
+		if (isset ( $_REQUEST ["reset"] )) {
+			$_SESSION ["blog2article_step"] = 1;
+		}
 		$sql = "SELECT * FROM {prefix}blog order by id limit 1 OFFSET ?";
 		$args = array (
 				$_SESSION ["blog2article_step"] - 1 
@@ -74,10 +77,6 @@ class Blog2ArticleController extends Controller {
 			$_SESSION ["blog2article_step"] += 1;
 		}
 		$html = Template::executeModuleTemplate ( "blog2articles", "progressbar" );
-		if ($this->getPercent () >= 100) {
-			$_SESSION ["blog2article_step"] = 0;
-			;
-		}
 		die ( $html );
 	}
 }

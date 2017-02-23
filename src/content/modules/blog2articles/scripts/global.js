@@ -1,18 +1,21 @@
 $(function() {
 	$("#import-button").click(function() {
 		$("#import-button").prop('disabled', true);
-		nextStep();
+		nextStep(true);
 	})
 
 })
-function nextStep() {
-	$.get("index.php?sClass=Blog2ArticleController&sMethod=nextStep", function(
-			result) {
+function nextStep(reset) {
+	url = "index.php?sClass=Blog2ArticleController&sMethod=nextStep";
+	if (reset) {
+		url += "&reset";
+	}
+	$.get(url, function(result) {
 		if (result.indexOf("<!--finish-->") > 0) {
 			$("#import-button").prop('disabled', false);
 		} else {
 			$("#importer_output").html(result);
-			nextStep();
+			nextStep(false);
 		}
 
 	});
