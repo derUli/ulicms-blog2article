@@ -6,5 +6,5 @@ $percent = $controller->getPercent ();
 if ($percent >= 100) {
 	?>
 <!--finish-->
-<?php }?><div style ="background-color: green; height: 50px; width:<?php echo $percent;?>%">
+<?php }?><div style ="background-color: green; height: 50px; width:<?php echo $percent;?>%">&nbsp;
 </div>
