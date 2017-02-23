@@ -53,7 +53,7 @@ class Blog2ArticleController extends Controller {
 			// @TODO Daten importieren
 			$blogData = Database::fetchObject ( $query );
 			if ($blogData) {
-				$this->_importEntry($blogData)
+				$this->_importEntry ( $blogData );
 			}
 			$_SESSION ["blog2article_step"] += 1;
 		}
