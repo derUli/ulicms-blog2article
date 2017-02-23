@@ -11,7 +11,7 @@ function nextStep(reset) {
 		url += "&reset";
 	}
 	$.get(url, function(result) {
-		if (result.indexOf("<!--finish-->") > 0) {
+		if (result.indexOf("<!--finish-->") >= 0) {
 			$("#import-button").prop('disabled', false);
 		} else {
 			$("#importer_output").html(result);
