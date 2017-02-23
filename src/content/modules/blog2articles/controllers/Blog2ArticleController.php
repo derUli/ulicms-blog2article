@@ -55,6 +55,11 @@ class Blog2ArticleController extends Controller {
 		}
 	}
 	public function nextStep() {
+		$acl = new ACL ();
+		if (! $acl->hasPermission ( "blog2articles" )) {
+			header ( "HTTP/1.0 403 Forbidden" );
+			return;
+		}
 		$sql = "SELECT * FROM {prefix}blog order by id limit 1 OFFSET ?";
 		$args = array (
 				$_SESSION ["blog2article_step"] - 1 
