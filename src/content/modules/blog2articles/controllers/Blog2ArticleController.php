@@ -1,17 +1,30 @@
 <?php
 class Blog2ArticleController extends Controller {
+	public function __construct() {
+		if (! isset ( $_SESSION ["blog2article_step"] )) {
+			$_SESSION ["blog2article_step"] = 1;
+		}
+	}
 	public function countTotalArgs() {
 		$query = "SELECT count(id) as amount FROM {prefix}blog";
 		$result = Database::fetchObject ( $query );
 	}
-	public function nextStep($step = 0) {
-		$sql = "SELECT * FROM {prefix}blog where id > ?";
+	public function getPercent() {
+		$onefile = 100 / floatval ( $this->countTotalArgs () );
+		$currentPercent = floatval ( $_SESSION ["blog2article_step"] ) * $onefile;
+		return intval ( $currentPercent );
+	}
+	public function nextStep() {
+		$sql = "SELECT * FROM {prefix}blog where id => ? limit 1 order by id";
 		$args = array (
-				intval ( $step ) 
+				$_SESSION ["blog2article_step"] 
 		);
 		$query = Database::pQuery ( $sql, $args, true );
 		// @FIXME HTML-Code sollte nicht im Controller stehen
 		if (count ( $query ) > 0) {
+			// Todo Daten importieren
+			die ( '<div style="background-color:green;height:50px; width:' . $this->getPercent () . '%"></div>' );
+			$_SESSION ["blog2article_step"] += 1;
 		} else {
 			die ( '<!--finish--><div style="background-color:green;height:50px; width:' . intval ( 100 ) . '%"></div>' );
 		}
