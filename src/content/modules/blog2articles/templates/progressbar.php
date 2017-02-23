@@ -1,9 +1,9 @@
 <?php
 $controller = ControllerRegistry::get ( "Blog2ArticleController" );
-$percent = $controller->getPercent ();
+
 ?><?php
 
-if ($percent >= 100) {
+if ($controller->getCurrentStep () == $controller->countTotalArgs ()) {
 	?>
 <!--finish-->
 <?php }?><div style="height: 50px; width: 100%; margin-top: 20px;">
