@@ -15,9 +15,9 @@ class Blog2ArticleController extends Controller {
 		return intval ( $currentPercent );
 	}
 	public function nextStep() {
-		$sql = "SELECT * FROM {prefix}blog where id => ? limit 1 order by id";
+		$sql = "SELECT * FROM {prefix}blog limit 1 OFFSET ? order by id";
 		$args = array (
-				$_SESSION ["blog2article_step"] 
+				$_SESSION ["blog2article_step"] - 1 
 		);
 		$query = Database::pQuery ( $sql, $args, true );
 		if (count ( $query ) > 0) {
