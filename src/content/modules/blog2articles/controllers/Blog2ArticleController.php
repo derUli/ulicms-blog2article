@@ -74,6 +74,10 @@ class Blog2ArticleController extends Controller {
 			$_SESSION ["blog2article_step"] += 1;
 		}
 		$html = Template::executeModuleTemplate ( "blog2articles", "progressbar" );
+		if ($this->getPercent () >= 100) {
+			$_SESSION ["blog2article_step"] = 0;
+			;
+		}
 		die ( $html );
 	}
 }
