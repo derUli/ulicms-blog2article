@@ -18,7 +18,7 @@ function nextStep(reset) {
 			$("#importer_output").html(result);
 			nextStep(false);
 		}
-
+		;
 	});
 
 }
