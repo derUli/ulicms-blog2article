@@ -1,5 +1,5 @@
 <?php
-define ( "MODULE_ADMIN_HEADLINE", "Einstellungen des Blogmoduls" );
+define ( "MODULE_ADMIN_HEADLINE", "blog2articles" );
 define ( "MODULE_ADMIN_REQUIRED_PERMISSION", "blog2articles" );
 function blog2articles_admin() {
 	echo Template::executeModuleTemplate ( "blog2articles", "import_form" );
