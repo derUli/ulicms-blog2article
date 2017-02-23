@@ -6,13 +6,18 @@ class Blog2ArticleController extends Controller {
 		}
 	}
 	public function countTotalArgs() {
-		$query = "SELECT count(id) as amount FROM {prefix}blog";
+		$sql = "SELECT count(id) as amount FROM {prefix}blog";
+		$query = Database::query ( $sql, true );
 		$result = Database::fetchObject ( $query );
+		return $result->amount;
 	}
 	public function getCurrentStep() {
 		return $_SESSION ["blog2article_step"];
 	}
 	public function getPercent() {
+		if ($this->countTotalArgs () < 1) {
+			return 0;
+		}
 		$onefile = 100 / floatval ( $this->countTotalArgs () );
 		$currentPercent = floatval ( $_SESSION ["blog2article_step"] ) * $onefile;
 		return intval ( $currentPercent );
@@ -27,6 +32,7 @@ class Blog2ArticleController extends Controller {
 			$article->language = $blogData->language;
 			$article->title = $blogData->title;
 			$article->active = $blogData->entry_enabled;
+			$article->menu = "none";
 			$article->autor = $blogData->author;
 			$article->lastchangeby = $blogData->author;
 			$article->content = $blogData->content_full;
@@ -44,12 +50,12 @@ class Blog2ArticleController extends Controller {
 		}
 	}
 	public function nextStep() {
-		$sql = "SELECT * FROM {prefix}blog limit 1 OFFSET ? order by id";
+		$sql = "SELECT * FROM {prefix}blog order by id limit 1 OFFSET ?";
 		$args = array (
 				$_SESSION ["blog2article_step"] - 1 
 		);
 		$query = Database::pQuery ( $sql, $args, true );
-		if (count ( $query ) > 0) {
+		if (Database::getNumRows ( $query ) > 0) {
 			// @TODO Daten importieren
 			$blogData = Database::fetchObject ( $query );
 			if ($blogData) {
@@ -57,7 +63,7 @@ class Blog2ArticleController extends Controller {
 			}
 			$_SESSION ["blog2article_step"] += 1;
 		}
-		$html = Template::executeModuleTemplate ( "blog2article", "progressbar" );
+		$html = Template::executeModuleTemplate ( "blog2articles", "progressbar" );
 		die ( $html );
 	}
 }
