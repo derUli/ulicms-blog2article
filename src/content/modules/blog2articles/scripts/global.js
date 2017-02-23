@@ -6,7 +6,8 @@ $(function() {
 
 })
 function nextStep(reset) {
-	url = "index.php?sClass=Blog2ArticleController&sMethod=nextStep";
+	url = "index.php?sClass=Blog2ArticleController&sMethod=nextStep&";
+	url += "&category=" + $("select[name='category']").val();
 	if (reset) {
 		url += "&reset";
 	}

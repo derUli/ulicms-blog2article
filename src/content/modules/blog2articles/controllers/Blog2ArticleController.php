@@ -41,7 +41,7 @@ class Blog2ArticleController extends Controller {
 			$article->meta_keywords = $blogData->meta_keywords;
 			$article->og_description = $blogData->meta_description;
 			$article->og_title = $blogData->title;
-			
+			$article->category = $category;
 			$excerpt = $blogData->content_preview;
 			if (strlen ( trim ( strip_tags ( $excerpt ) ) ) <= 0) {
 				$excerpt = $article->content;
@@ -72,7 +72,7 @@ class Blog2ArticleController extends Controller {
 			// @TODO Daten importieren
 			$blogData = Database::fetchObject ( $query );
 			if ($blogData) {
-				$this->_importEntry ( $blogData );
+				$this->_importEntry ( $blogData, $_REQUEST ["category"] );
 			}
 		}
 		$html = Template::executeModuleTemplate ( "blog2articles", "progressbar" );
