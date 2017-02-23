@@ -37,6 +37,11 @@ class Blog2ArticleController extends Controller {
 			$article->lastchangeby = $blogData->author;
 			$article->content = $blogData->content_full;
 			$article->position = $_SESSION ["blog2article_step"] * 10;
+			$article->meta_description = $blogData->meta_description;
+			$article->meta_keywords = $blogData->meta_keywords;
+			$article->og_description = $blogData->meta_description;
+			$article->og_title = $blogData->title;
+			
 			$excerpt = $blogData->content_preview;
 			if (strlen ( trim ( strip_tags ( $excerpt ) ) ) <= 0) {
 				$excerpt = $article->content;
