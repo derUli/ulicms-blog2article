@@ -24,8 +24,7 @@ class Blog2ArticleController extends Controller {
 		);
 		$query = Database::pQuery ( $sql, $args, true );
 		if (count ( $query ) > 0) {
-			// Todo Daten importieren
-			// @FIXME HTML-Code sollte nicht im Controller stehen
+			// @TODO Daten importieren
 			$_SESSION ["blog2article_step"] += 1;
 		}
 		$html = Template::executeModuleTemplate ( "blog2article", "progressbar" );
