@@ -1,5 +1,5 @@
 {
-	"version" : "0.1",
+	"version" : "1.0",
 	"embed" : false,
 	"custom_acl" : ["blog2articles"],
 	"admin_permission" : "blog2articles",

@@ -1,4 +1,6 @@
 <?php
+use UliCMS\Data\Content\Comment;
+use UliCMS\Exceptions\FileNotFoundException;
 class Blog2ArticleController extends Controller {
 	public function __construct() {
 		if (! isset ( $_SESSION ["blog2article_step"] )) {
@@ -24,9 +26,9 @@ class Blog2ArticleController extends Controller {
 	}
 	protected function _importEntry($blogData, $category = 1) {
 		try {
-			ContentFactory::loadBySystemnameAndLanguage ( $blogData->seo_shortname, $blogData->language );
-			return false;
-		} catch ( Exception $e ) {
+			$article = ContentFactory::getBySystemnameAndLanguage ( $blogData->seo_shortname, $blogData->language );
+			return $article->id;
+		} catch ( FileNotFoundException $e ) {
 			$article = new Article ();
 			$article->systemname = $blogData->seo_shortname;
 			$article->language = $blogData->language;
@@ -47,11 +49,29 @@ class Blog2ArticleController extends Controller {
 				$excerpt = $article->content;
 			}
 			$article->excerpt = $excerpt;
+			$article->comments_enabled = $blogData->comments_enabled;
 			$article->save ();
 			$article->created = $blogData->datum;
 			$article->lastmodified = $blogData->datum;
 			$article->save ();
-			return true;
+			return $article->id;
+		}
+	}
+	protected function _importComments($originalId, $contentId) {
+		$sql = "SELECT * FROM {prefix}blog_comments where post_id = ? order by id";
+		$query = Database::pQuery ( $sql, array (
+				$originalId 
+		), true );
+		while ( $row = Database::fetchObject ( $query ) ) {
+			$comment = new Comment ();
+			$comment->setContentId ( $contentId );
+			$comment->setAuthorName ( $row->name );
+			$comment->setAuthorEmail ( $row->email );
+			$comment->setAuthorUrl ( $row->url );
+			$comment->setDate ( $row->date );
+			$comment->setText ( $row->comment );
+			$comment->setStatus ( CommentStatus::PUBLISHED );
+			$comment->save ();
 		}
 	}
 	public function nextStep() {
@@ -72,7 +92,8 @@ class Blog2ArticleController extends Controller {
 			// @TODO Daten importieren
 			$blogData = Database::fetchObject ( $query );
 			if ($blogData) {
-				$this->_importEntry ( $blogData, $_REQUEST ["category"] );
+				$insertId = $this->_importEntry ( $blogData, $_REQUEST ["category"] );
+				$this->_importComments ( $blogData->id, $insertId );
 			}
 		}
 		$html = Template::executeModuleTemplate ( "blog2articles", "progressbar" );

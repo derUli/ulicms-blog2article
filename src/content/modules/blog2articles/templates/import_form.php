@@ -3,9 +3,9 @@
 		<label><input type="checkbox" name="import_blog_entries"
 			id="import_blog_entries" value="1" onclick="return false;" checked><?php translate("import_blog_entries");?></label>
 	</div>
-	<div class="checkbox disabled">
+	<div class="checkbox">
 		<label><input type="checkbox" name="import_comments"
-			id="import_comments" value="1" disabled><?php translate("import_comments");?></label>
+			id="import_comments" value="1"><?php translate("import_comments");?></label>
 	</div>
 	<h2><?php translate("target");?></h2>
 	<strong><?php translate("category")?></strong>

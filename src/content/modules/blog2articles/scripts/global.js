@@ -9,8 +9,12 @@ function nextStep(reset) {
 	url = "index.php?sClass=Blog2ArticleController&sMethod=nextStep&";
 	url += "&category=" + $("select[name='category']").val();
 	if (reset) {
-		url += "&reset";
+		url += "&reset=1";
 	}
+	if ($("#import_comments").is(":checked")) {
+		url += "&import_comments=1";
+	}
+
 	$.get(url, function(result) {
 		if (result.indexOf("<!--finish-->") >= 0) {
 			$("#importer_output").html(result);
@@ -21,5 +25,4 @@ function nextStep(reset) {
 		}
 		;
 	});
-
 }
