@@ -36,6 +36,9 @@ class Blog2ArticleController extends Controller {
 			$article->active = $blogData->entry_enabled;
 			$article->menu = "none";
 			$article->autor = $blogData->author;
+			$user = new User ( $blogData->author );
+			$article->group_id = $user->getPrimaryGroupId ();
+			
 			$article->lastchangeby = $blogData->author;
 			$article->content = $blogData->content_full;
 			$article->position = $_SESSION ["blog2article_step"] * 10;
@@ -44,6 +47,7 @@ class Blog2ArticleController extends Controller {
 			$article->og_description = $blogData->meta_description;
 			$article->og_title = $blogData->title;
 			$article->category = $category;
+			
 			$excerpt = $blogData->content_preview;
 			if (strlen ( trim ( strip_tags ( $excerpt ) ) ) <= 0) {
 				$excerpt = $article->content;
