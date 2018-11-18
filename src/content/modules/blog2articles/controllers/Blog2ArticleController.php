@@ -72,10 +72,14 @@ class Blog2ArticleController extends Controller {
 			$comment->setAuthorName ( $row->name );
 			$comment->setAuthorEmail ( $row->email );
 			$comment->setAuthorUrl ( $row->url );
-			$comment->setDate ( $row->date );
 			$comment->setText ( $row->comment );
 			$comment->setStatus ( CommentStatus::PUBLISHED );
 			$comment->save ();
+			
+			// Apply date from date comment after save, 
+			// since the date would be overwritten on create
+			$comment->setDate ( $row->date );
+			$comment->save();
 		}
 	}
 	public function nextStep() {
@@ -93,7 +97,6 @@ class Blog2ArticleController extends Controller {
 		);
 		$query = Database::pQuery ( $sql, $args, true );
 		if (Database::getNumRows ( $query ) > 0) {
-			// @TODO Daten importieren
 			$blogData = Database::fetchObject ( $query );
 			if ($blogData) {
 				$insertId = $this->_importEntry ( $blogData, $_REQUEST ["category"] );
