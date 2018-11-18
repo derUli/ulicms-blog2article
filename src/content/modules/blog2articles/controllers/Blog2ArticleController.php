@@ -78,7 +78,7 @@ class Blog2ArticleController extends Controller {
 			
 			// Apply date from date comment after save, 
 			// since the date would be overwritten on create
-			$comment->setDate ( $row->date );
+			$comment->setDate ( intval($row->date ));
 			$comment->save();
 		}
 	}
