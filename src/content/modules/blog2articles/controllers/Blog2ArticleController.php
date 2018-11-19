@@ -54,7 +54,7 @@ class Blog2ArticleController extends Controller {
 			}
 			$article->excerpt = $excerpt;
 			$article->comments_enabled = $blogData->comments_enabled;
-			$article_article_date = $blogData->datum;
+			$article->article_date = $blogData->datum;
 			$article->save ();
 			return $article->id;
 		}
