@@ -1,6 +1,6 @@
 {
 	"id": "blog2articles",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "Blog2Articles",
 	"categories": [
 		"import",
@@ -9,5 +9,5 @@
 		"articles"
 	],
 	"dependencies" : ["blog"],
-	"compatible_from": "2019.1"
+	"compatible_from": "2019.1.3"
 }

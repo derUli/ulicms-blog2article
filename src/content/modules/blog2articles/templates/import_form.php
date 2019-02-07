@@ -12,7 +12,6 @@
 	<div style="margin-bottom: 20px">
 	<?php echo categories :: getHTMLSelect();?>
 	</div>
-	<input type="button" value="<?php translate("do_import");?>"
-		id="import-button">
+	<button type="button" id="import-button" class="btn btn-primary"><i class="fas fa-upload"></i> <?php translate("do_import");?></button>
 </form>
 <div id="importer_output"></div>
