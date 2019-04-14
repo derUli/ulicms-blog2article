@@ -35,7 +35,7 @@ class Blog2ArticleController extends Controller {
 			$article->title = $blogData->title;
 			$article->active = $blogData->entry_enabled;
 			$article->menu = "none";
-			$article->autor = $blogData->author;
+			$article->author_id = $blogData->author;
 			$user = new User ( $blogData->author );
 			$article->group_id = $user->getPrimaryGroupId ();
 			
