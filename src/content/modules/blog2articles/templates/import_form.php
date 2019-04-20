@@ -8,7 +8,7 @@
 			id="import_comments" value="1"><?php translate("import_comments");?></label>
 	</div>
 	<h2><?php translate("target");?></h2>
-	<strong><?php translate("category")?></strong>
+        <strong><?php translate("category")?></strong>
 	<div style="margin-bottom: 20px">
 	<?php echo categories :: getHTMLSelect();?>
 	</div>

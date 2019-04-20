@@ -24,7 +24,7 @@ class Blog2ArticleController extends Controller {
 		$currentPercent = floatval ( $_SESSION ["blog2article_step"] ) * $onefile;
 		return intval ( $currentPercent );
 	}
-	protected function _importEntry($blogData, $category = 1) {
+	protected function _importEntry($blogData, $category_id = 1) {
 		try {
 			$article = ContentFactory::getBySystemnameAndLanguage ( $blogData->seo_shortname, $blogData->language );
 			return $article->id;
@@ -46,7 +46,7 @@ class Blog2ArticleController extends Controller {
 			$article->meta_keywords = $blogData->meta_keywords;
 			$article->og_description = $blogData->meta_description;
 			$article->og_title = $blogData->title;
-			$article->category = $category;
+			$article->category_id = $category_id;
 			
 			$excerpt = $blogData->content_preview;
 			if (strlen ( trim ( strip_tags ( $excerpt ) ) ) <= 0) {
@@ -72,6 +72,7 @@ class Blog2ArticleController extends Controller {
 			$comment->setAuthorUrl ( $row->url );
 			$comment->setText ( $row->comment );
 			$comment->setStatus ( CommentStatus::PUBLISHED );
+                        $comment->setRead(true);
 			$comment->save ();
 			
 			// Apply date from date comment after save, 
@@ -97,7 +98,7 @@ class Blog2ArticleController extends Controller {
 		if (Database::getNumRows ( $query ) > 0) {
 			$blogData = Database::fetchObject ( $query );
 			if ($blogData) {
-				$insertId = $this->_importEntry ( $blogData, $_REQUEST ["category"] );
+				$insertId = $this->_importEntry ( $blogData, $_REQUEST ["category_id"] );
 				$this->_importComments ( $blogData->id, $insertId );
 			}
 		}
