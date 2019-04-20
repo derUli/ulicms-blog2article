@@ -7,7 +7,7 @@ $(function() {
 })
 function nextStep(reset) {
 	url = "index.php?sClass=Blog2ArticleController&sMethod=nextStep&";
-	url += "&category=" + $("select[name='category']").val();
+	url += "&category_id=" + $("select[name='category_id']").val();
 	if (reset) {
 		url += "&reset=1";
 	}
