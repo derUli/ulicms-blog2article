@@ -26,11 +26,11 @@ class Blog2ArticleController extends Controller {
 	}
 	protected function _importEntry($blogData, $category_id = 1) {
 		try {
-			$article = ContentFactory::getBySystemnameAndLanguage ( $blogData->seo_shortname, $blogData->language );
+			$article = ContentFactory::getBySlugAndLanguage ( $blogData->seo_shortname, $blogData->language );
 			return $article->id;
 		} catch ( FileNotFoundException $e ) {
 			$article = new Article ();
-			$article->systemname = $blogData->seo_shortname;
+			$article->slug = $blogData->seo_shortname;
 			$article->language = $blogData->language;
 			$article->title = $blogData->title;
 			$article->active = $blogData->entry_enabled;

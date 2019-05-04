@@ -1,13 +1,8 @@
 {
-    "id": "blog2articles",
-    "version": "1.3",
-    "description": "Blog2Articles",
-    "categories": [
-        "import",
-        "export",
-        "blog",
-        "articles"
-    ],
-    "dependencies": ["blog"],
-    "compatible_from": "2019.2.7"
+  "id": "blog2articles",
+  "version": "1.4",
+  "description": "Blog2Articles",
+  "categories": ["import", "export", "blog", "articles"],
+  "dependencies": ["blog"],
+  "compatible_from": "2019.2.8"
 }
