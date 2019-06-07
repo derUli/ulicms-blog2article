@@ -1,5 +1,6 @@
 <?php
-use UliCMS\Data\Content\Comment;
+use UliCMS\Models\Content\Comment;
+use UliCMS\Constants\CommentStatus;
 use UliCMS\Exceptions\FileNotFoundException;
 class Blog2ArticleController extends Controller {
 	public function __construct() {

@@ -1,3 +1,6 @@
+<?php 
+use UliCMS\Models\Content\Categories;
+?>
 <form method="get" class="#">
 	<div class="checkbox">
 		<label><input type="checkbox" name="import_blog_entries"
@@ -10,7 +13,7 @@
 	<h2><?php translate("target");?></h2>
         <strong><?php translate("category")?></strong>
 	<div style="margin-bottom: 20px">
-	<?php echo categories :: getHTMLSelect();?>
+	<?php echo Categories :: getHTMLSelect();?>
 	</div>
 	<button type="button" id="import-button" class="btn btn-primary"><i class="fas fa-upload"></i> <?php translate("do_import");?></button>
 </form>
